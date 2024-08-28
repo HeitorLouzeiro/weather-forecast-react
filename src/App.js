@@ -45,7 +45,7 @@ function ResultadoClima({ clima }) {
       </div>
     );
   }
-
+  const icon = wInfo.weather[0].icon; // For instance "09d"
   return (
     <div style={estiloResultado}>
       <h2>Clima:</h2>
@@ -53,8 +53,8 @@ function ResultadoClima({ clima }) {
       <p>Descrição: {clima.weather[0].description}</p>
       <p>Humidade: {clima.main.humidity}%</p>
       <p>Temperatura Minima: {clima.main.temp_min}</p>
-      <p>Temperatura Maxima: {clima.main.temp_max}</p>
-    </div>
+      <p>Temperatura Maxima: {clima.main.temp_max}</p>  
+      </div>
   );
 }
 
@@ -105,35 +105,56 @@ function App() {
     buscarClima(); 
   }); 
 
+  const estilo_pag ={
+    with: '100vw',
+    height: '100vh',
+    display: 'flex', 
+    justifyContent: 'center',
+    backgroundColor: '#93f0ff'
+  };
+
   const estiloContainer = {
     textAlign: 'center',
     marginTop: '50px',
+    border: '1px solid gray',
+    borderRadius: '5px',
+    width: '60vw',
+    height: '80vh',
+    backgroundColor: 'white'
+    
   };
   const estiloInput = {
-    padding: '10px',
+    padding: '8px',
     fontSize: '16px',
   };
   const estiloBotao = {
     padding: '10px 20px',
     fontSize: '16px',
     marginLeft: '10px',
+    borderRadius: '3px',
+    backgroundColor: '#55bfda',
+    color: 'white',
+    border: 'none'
   };
 
   return (
-    <div style={estiloContainer}>
-      <h1>Busca por CEP e Clima</h1>
-      <input
-        type="text"
-        placeholder="Digite o CEP"
-        value={cep}
-        onChange={(e) => setCep(e.target.value)} 
-        style={estiloInput}
-      />
-      <button onClick={buscarPrevisaoCEP} style={estiloBotao}>
-        Buscar
-      </button>
-      <ResultadoCEP dados={dadosCEP} />
-      <ResultadoClima clima={dadosClima} />
+    <div style={estilo_pag}>
+      <div style={estiloContainer}>
+        <h1>Busca por CEP e Clima</h1>
+        <input
+          type="text"
+          placeholder="Digite o CEP"
+          value={cep}
+          onChange={(e) => setCep(e.target.value)} 
+          style={estiloInput}
+        />
+        <button onClick={buscarPrevisaoCEP} style={estiloBotao}>
+          Buscar
+        </button>
+        <ResultadoCEP dados={dadosCEP} />
+        <ResultadoClima clima={dadosClima} />
+    
+        </div>
     </div>
   );
 }
