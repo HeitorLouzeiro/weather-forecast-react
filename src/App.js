@@ -34,7 +34,16 @@ function ResultadoClima({ clima }) {
     marginTop: '20px',
     textAlign: 'center',
   };
+  
+  const estiloimagem = {
+    marginLeft: '800px',
+  };
 
+  const imagem = {
+    width: '150px',
+    position: 'relative',
+    filter: 'drop-shadow(3px 3px 8px black) '
+  };
   console.log('Clima data:', clima); // log da resposta da api
 
   if (!clima || !clima.main) {
@@ -45,7 +54,8 @@ function ResultadoClima({ clima }) {
       </div>
     );
   }
-  const icon = wInfo.weather[0].icon; // For instance "09d"
+  const iconCode = clima.weather[0].icon; // 'data' é a resposta da API
+  const iconUrl = http://openweathermap.org/img/wn/${iconCode}@2x.png;
   return (
     <div style={estiloResultado}>
       <h2>Clima:</h2>
@@ -53,7 +63,10 @@ function ResultadoClima({ clima }) {
       <p>Descrição: {clima.weather[0].description}</p>
       <p>Humidade: {clima.main.humidity}%</p>
       <p>Temperatura Minima: {clima.main.temp_min}</p>
-      <p>Temperatura Maxima: {clima.main.temp_max}</p>  
+      <p>Temperatura Maxima: {clima.main.temp_max}</p>
+      <div style={estiloimagem}>
+        <img style={imagem} src={iconUrl} alt="Weather icon" /> 
+      </div>
       </div>
   );
 }
@@ -72,7 +85,7 @@ function App() {
     if (!cep) return;
 
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      const response = await fetch(https://viacep.com.br/ws/${cep}/json/);
       const data = await response.json();
       setDadosCEP(data);
 
@@ -91,7 +104,7 @@ function App() {
     if (!cidade) return;
 
     try {
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&lang=pt_br&units=metric`); // Use API_KEY
+      const response = await fetch(https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${API_KEY}&lang=pt_br&units=metric); // Use API_KEY
       const data = await response.json();
       setDadosClima(data);
     } catch (error) {
